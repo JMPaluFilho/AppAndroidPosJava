@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="nomesEmpresas">
+        <item>@string/empresa_um</item>
+        <item>@string/empresa_dois</item>
+        <item>@string/empresa_tres</item>
+        <item>@string/empresa_quatro</item>
+        <item>@string/empresa_cinco</item>
+        <item>@string/empresa_seis</item>
+        <item>@string/empresa_sete</item>
+        <item>@string/empresa_oito</item>
+        <item>@string/empresa_nove</item>
+        <item>@string/empresa_dez</item>
+    </string-array>
+
+    <string-array name="cnpjEmpresas">
+        <item>@string/cnpj_zero</item>
+        <item>@string/cnpj_um</item>
+        <item>@string/cnpj_dois</item>
+        <item>@string/cnpj_tres</item>
+        <item>@string/cnpj_quatro</item>
+        <item>@string/cnpj_cinco</item>
+        <item>@string/cnpj_seis</item>
+        <item>@string/cnpj_sete</item>
+        <item>@string/cnpj_oito</item>
+        <item>@string/cnpj_nove</item>
+    </string-array>
+
+    <string-array name="servicosEmpresas">
+        <item>@string/rbInstagram</item>
+        <item>@string/rbFacebook</item>
+        <item>@string/rbSite</item>
+        <item>@string/rbInstagram</item>
+        <item>@string/rbFacebook</item>
+        <item>@string/rbSite</item>
+        <item>@string/rbInstagram</item>
+        <item>@string/rbFacebook</item>
+        <item>@string/rbSite</item>
+        <item>@string/rbInstagram</item>
+    </string-array>
+
+    <integer-array name="frequenciaSemanal">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </integer-array>
+</resources>

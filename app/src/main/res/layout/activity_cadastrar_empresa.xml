@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        tools:context=".MainActivity">
+        tools:context=".CadastrarEmpresa">
 
         <TextView
             android:id="@+id/textViewLabelNomeEmpresa"

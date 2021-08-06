@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class CadastrarEmpresa extends AppCompatActivity {
 
     private EditText editTextNomeEmpresa, editTextDtInicio, editTextValorContrato, editTextCNPJ;
     private DatePickerDialog datePickerDialog;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cadastrar_empresa);
 
         editTextNomeEmpresa = findViewById(R.id.editTextNomeEmpresa);
         editTextDtInicio = findViewById(R.id.editTextDtInicio);
