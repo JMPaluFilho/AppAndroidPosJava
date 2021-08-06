@@ -1,0 +1,44 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Post Control</string>
+
+    <!-- Labels -->
+    <string name="nomeEmpresa">Nome da Empresa</string>
+    <string name="dtInicioContrato">Data de Início do Contrato</string>
+    <string name="valorContrato">Valor do Contrato</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="servicoContratado">Serviço Contratado</string>
+    <string name="rbInstagram">Instagram</string>
+    <string name="rbFacebook">Facebook</string>
+    <string name="rbSite">Site</string>
+    <string name="frequenciaSemanal">Frequência Semanal</string>
+    <string name="ativo">Contrato Ativo</string>
+
+    <!-- Spinner -->
+    <string name="spinnerVazio" />
+    <string name="spinnerUm">1 vez</string>
+    <string name="spinnerDois">2 vezes</string>
+    <string name="spinnerTres">3 vezes</string>
+    <string name="spinnerQuatro">Todos os dias</string>
+
+    <!-- Errors -->
+    <string name="erro_nome">Nome da Empresa não pode ser vazio!</string>
+    <string name="erro_dtInicio">Data de Início do Contrato não pode ser vazia!</string>
+    <string name="erro_valorContrato">Valor do Contrato não pode ser vazio!</string>
+    <string name="erro_CNPJ_vazio">O CNPJ da Empresa não pode ser vazio!</string>
+    <string name="erro_CNPJ">O CNPJ deve possuir 14 dígitos!</string>
+    <string name="erro_servico">Nenhum serviço selecionado</string>
+    <string name="erro_frequencia">Frequência não selecionada!</string>
+
+    <!-- Messages -->
+    <string name="campos_limpos">Campos Limpos!</string>
+
+    <!-- Buttons -->
+    <string name="limpar">Limpar</string>
+    <string name="salvar">Salvar</string>
+
+    <!-- Utils -->
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+
+</resources>
