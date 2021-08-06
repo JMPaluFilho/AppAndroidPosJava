@@ -1,5 +1,7 @@
 # AppAndroidPosJava
 
+Entrega 2 - Listagem de Itens carregados de Arrays do Resource
+
 Faça uma nova versão do projeto submetido na Entrega 1 criando uma nova Activity que listará itens, estes serão objetos de um tipo de Entidade relacionada ao Tema do Projeto. 
 
 Neste projeto além do entregue na versão anterior, deve-se:
