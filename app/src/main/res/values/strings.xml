@@ -41,4 +41,27 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
 
+    <!-- Array Empresas -->
+    <string name="empresa_um">Empresa 1</string>
+    <string name="empresa_dois">Empresa 2</string>
+    <string name="empresa_tres">Empresa 3</string>
+    <string name="empresa_quatro">Empresa 4</string>
+    <string name="empresa_cinco">Empresa 5</string>
+    <string name="empresa_seis">Empresa 6</string>
+    <string name="empresa_sete">Empresa 7</string>
+    <string name="empresa_oito">Empresa 8</string>
+    <string name="empresa_nove">Empresa 9</string>
+    <string name="empresa_dez">Empresa 10</string>
+
+    <string name="cnpj_zero">00.000.000/0000–00</string>
+    <string name="cnpj_um">11.111.111/1111–11</string>
+    <string name="cnpj_dois">22.222.222/2222–22</string>
+    <string name="cnpj_tres">33.333.333/3333–33</string>
+    <string name="cnpj_quatro">44.444.444/4444–44</string>
+    <string name="cnpj_cinco">55.555.555/5555–55</string>
+    <string name="cnpj_seis">66.666.666/6666–66</string>
+    <string name="cnpj_sete">77.777.777/7777–77</string>
+    <string name="cnpj_oito">88.888.888/8888–88</string>
+    <string name="cnpj_nove">99.999.999/9999–99</string>
+
 </resources>
