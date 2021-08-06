@@ -13,6 +13,7 @@ Neste projeto crie uma Activity que implemente um formulário de cadastro de uma
   - Uso de elementos Spinner (pelo menos 1);
   - Um dos Buttons deve ter o rótulo "Limpar" e ao ser clicado limpará os valores dos elementos EditText e desmarcará os RadioButtons e CheckBox, e depois será mostrado um Toast indicando a ação realizada;
   - Um dos Buttons deve ter o rótulo "Salvar" e ao ser clicado recuperará os valores dos elementos EditText, CheckBox e Spinner, e o RadioButton selecionado. Caso algum EditText esteja vazio ou nenhum RadioButton selecionado, deverá ser mostrado uma mensagem de erro em um Toast e o foco de edição voltará para o campo vazio (caso seja possível).
+
 Caso o formulário de cadastro fique maior do que a tela do dispositivo será necessário colocar barra de rolagem, para tal, utilize a classe ScrollView ou HorizontalScrollView.
 
 Deve-se utilizar:
