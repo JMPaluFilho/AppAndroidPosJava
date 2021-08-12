@@ -1,24 +1,34 @@
 package com.example.postcontrol.entity;
 
-public class Empresa {
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Empresa implements Serializable {
+
+    private static final long serialVersionUID = -6609754280778852186L;
 
     private String nomeEmpresa;
-    /*
-    private Date dtInicioContrato;
+    private LocalDate dtInicioContrato;
     private Double valorContrato;
-     */
     private String cnpj;
     private String servicoContratado;
-    private Integer frequenciaSemanal;
-    /*
+    private String frequenciaSemanal;
     private Boolean contratoAtivo;
-    */
 
-    public Empresa(String nomeEmpresa, String cnpj, String servicoContratado, Integer frequenciaSemanal) {
+    public Empresa() {
+
+    }
+
+    public Empresa(String nomeEmpresa, LocalDate dtInicioContrato, Double valorContrato, String cnpj,
+                   String servicoContratado, String frequenciaSemanal, Boolean contratoAtivo) {
         this.nomeEmpresa = nomeEmpresa;
+        this.dtInicioContrato = dtInicioContrato;
+        this.valorContrato = valorContrato;
         this.cnpj = cnpj;
         this.servicoContratado = servicoContratado;
         this.frequenciaSemanal = frequenciaSemanal;
+        this.contratoAtivo = contratoAtivo;
     }
 
     public String getNomeEmpresa() {
@@ -27,6 +37,22 @@ public class Empresa {
 
     public void setNomeEmpresa(String nomeEmpresa) {
         this.nomeEmpresa = nomeEmpresa;
+    }
+
+    public LocalDate getDtInicioContrato() {
+        return dtInicioContrato;
+    }
+
+    public void setDtInicioContrato(LocalDate dtInicioContrato) {
+        this.dtInicioContrato = dtInicioContrato;
+    }
+
+    public Double getValorContrato() {
+        return valorContrato;
+    }
+
+    public void setValorContrato(Double valorContrato) {
+        this.valorContrato = valorContrato;
     }
 
     public String getCnpj() {
@@ -45,12 +71,20 @@ public class Empresa {
         this.servicoContratado = servicoContratado;
     }
 
-    public Integer getFrequenciaSemanal() {
+    public String getFrequenciaSemanal() {
         return frequenciaSemanal;
     }
 
-    public void setFrequenciaSemanal(Integer frequenciaSemanal) {
+    public void setFrequenciaSemanal(String frequenciaSemanal) {
         this.frequenciaSemanal = frequenciaSemanal;
+    }
+
+    public Boolean getContratoAtivo() {
+        return contratoAtivo;
+    }
+
+    public void setContratoAtivo(Boolean contratoAtivo) {
+        this.contratoAtivo = contratoAtivo;
     }
 
     @Override
@@ -60,8 +94,12 @@ public class Empresa {
 
     public String getDetails() {
         return "Nome: " + getNomeEmpresa()
+                + "\nData de Início do Contrato: " + getDtInicioContrato().
+                format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                + "\nValor do Contrato: " + getValorContrato()
                 + "\nCNPJ: " + getCnpj()
                 + "\nServiço Contratado: " + getServicoContratado()
-                + "\nFrequência Semanal: " + getFrequenciaSemanal();
+                + "\nFrequência Semanal: " + getFrequenciaSemanal()
+                + "\nContrato Ativo: " + (getContratoAtivo() ? "Sim" : "Não");
     }
 }

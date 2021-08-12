@@ -2,6 +2,7 @@ package com.example.postcontrol;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,10 +14,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.postcontrol.entity.Empresa;
 import com.example.postcontrol.services.MaskCNPJService;
 import com.example.postcontrol.services.MaskCurrencyService;
+import com.example.postcontrol.utils.MethodsUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -131,16 +135,16 @@ public class CadastrarEmpresa extends AppCompatActivity {
                 nomeEmpresa, dtInicio, valorContrato, CNPJ, servico, frequencia);
 
         if (!erro) {
-            Toast.makeText(this,
-                    (getString(R.string.nomeEmpresa)) + ": " + nomeEmpresa
-                            + "\n" + (getString(R.string.dtInicioContrato)) + ": " + dtInicio
-                            + "\n" + (getString(R.string.valorContrato)) + ": " + valorContrato
-                            + "\n" + (getString(R.string.cnpj)) + ": " + CNPJ
-                            + "\n" + (getString(R.string.servicoContratado)) + ": " + servico
-                            + "\n" + (getString(R.string.frequenciaSemanal)) + ": " + frequencia
-                            + "\n" + (getString(R.string.ativo)) + ": "
-                            + (ativo ? getString(R.string.sim) : getString(R.string.nao)),
-                    Toast.LENGTH_LONG).show();
+            LocalDate dataInicio = MethodsUtils.converterData(dtInicio);
+            Double valor = MethodsUtils.converterValor(valorContrato);
+
+            Empresa empresa = new Empresa(nomeEmpresa, dataInicio, valor, CNPJ, servico, frequencia, ativo);
+            Toast.makeText(this, empresa.getDetails(), Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(this, ListarEmpresas.class);
+            intent.putExtra(getString(R.string.empresa), empresa);
+
+            startActivity(intent);
         }
     }
 
