@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.postcontrol.adapter.EmpresaAdapter;
 import com.example.postcontrol.entity.Empresa;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -18,6 +19,7 @@ public class ListarEmpresas extends AppCompatActivity {
 
     private FloatingActionButton btnAdd, btnInfo;
     private RecyclerView recyclerView;
+    private EmpresaAdapter empresaAdapter;
     private static ArrayList<Empresa> empresas = new ArrayList<>();
 
     @Override
@@ -59,16 +61,8 @@ public class ListarEmpresas extends AppCompatActivity {
     }
 
     private void popularLista(Empresa empresa) {
-       empresas.add(empresa);
-
-        /**
-         * criar um Adapter View Holder
-         * https://www.youtube.com/watch?v=SgquCAp0yls
-         */
-
-/*        ArrayAdapter<Empresa> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, empresas);
-
-        recyclerView.setAdapter(adapter);*/
+        empresas.add(empresa);
+        empresaAdapter = new EmpresaAdapter(empresas);
+        recyclerView.setAdapter(empresaAdapter);
     }
 }

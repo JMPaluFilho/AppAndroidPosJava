@@ -1,5 +1,7 @@
 package com.example.postcontrol.entity;
 
+import com.example.postcontrol.utils.MethodsUtils;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -96,7 +98,7 @@ public class Empresa implements Serializable {
         return "Nome: " + getNomeEmpresa()
                 + "\nData de Início do Contrato: " + getDtInicioContrato().
                 format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                + "\nValor do Contrato: " + getValorContrato()
+                + "\nValor do Contrato: " + MethodsUtils.exibirValor(getValorContrato())
                 + "\nCNPJ: " + getCnpj()
                 + "\nServiço Contratado: " + getServicoContratado()
                 + "\nFrequência Semanal: " + getFrequenciaSemanal()
