@@ -14,6 +14,10 @@
     <string name="rbSite">Site</string>
     <string name="frequenciaSemanal">Frequência Semanal</string>
     <string name="ativo">Contrato Ativo</string>
+    <string name="labelNomeAluno">Nome do Aluno:</string>
+    <string name="labelCurso">Curso:</string>
+    <string name="labelEmail">E-mail:</string>
+    <string name="labelDescricao">Descrição do App:</string>
 
     <!-- Spinner -->
     <string name="spinnerVazio" />
@@ -37,22 +41,21 @@
     <!-- Buttons -->
     <string name="limpar">Limpar</string>
     <string name="salvar">Salvar</string>
+    <string name="voltar">Voltar</string>
+    <string name="adicionar_empresa">Adicionar Empresa</string>
+    <string name="infos_autorais">Informações Autorais</string>
 
     <!-- Utils -->
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
-
-
-    <string name="adicionar_empresa">Adicionar Empresa</string>
-    <string name="infos_autorais">Informações Autorais</string>
-    <string name="labelNomeAluno">Nome do Aluno:</string>
-    <string name="labelCurso">Curso:</string>
-    <string name="labelEmail">E-mail:</string>
-    <string name="Labeldescricao">Descrição do App:</string>
     <string name="utfpr">Universidade Tecnológica Federal do Paraná</string>
+    <string name="result">Result</string>
+
+    <!-- Infos -->
     <string name="nomeAluno">José Marcos Palú Filho</string>
     <string name="curso">Especialização Em Tecnologia Java</string>
     <string name="email">jmpalufilho@gmail.com</string>
     <string name="descricao">Manter um cadastro de empresas que solicitaram os serviços de um autônomo que gerencia mídias sociais.</string>
+    <string name="logo_utfpr">Logo UTFPR</string>
 
 </resources>

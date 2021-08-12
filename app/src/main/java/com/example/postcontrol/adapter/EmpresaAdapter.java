@@ -73,7 +73,7 @@ public class EmpresaAdapter extends RecyclerView.Adapter<EmpresaAdapter.EmpresaV
         void bind(Empresa empresa) {
             int hash = empresa.getNomeEmpresa().hashCode();
             txtIcon.setText(String.valueOf(empresa.getNomeEmpresa().charAt(0)));
-            txtIcon.setBackground(oval(Color.rgb(hash, hash/2, 0), txtIcon));
+            txtIcon.setBackground(oval(Color.rgb(hash, hash / 2, 0), txtIcon));
             txtNome.setText(empresa.getNomeEmpresa());
             txtCnpj.setText(empresa.getCnpj());
             txtValor.setText(MethodsUtils.exibirValor(empresa.getValorContrato()));

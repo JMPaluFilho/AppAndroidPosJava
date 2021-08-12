@@ -1,6 +1,7 @@
 package com.example.postcontrol;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -139,13 +140,19 @@ public class CadastrarEmpresa extends AppCompatActivity {
             Double valor = MethodsUtils.converterValor(valorContrato);
 
             Empresa empresa = new Empresa(nomeEmpresa, dataInicio, valor, CNPJ, servico, frequencia, ativo);
-            Toast.makeText(this, empresa.getDetails(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, empresa.getDetails(), Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, ListarEmpresas.class);
+            Intent intent = new Intent();
             intent.putExtra(getString(R.string.empresa), empresa);
-
-            startActivity(intent);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     private boolean validarErros(String nomeEmpresa, String dtInicio, String valorContrato,

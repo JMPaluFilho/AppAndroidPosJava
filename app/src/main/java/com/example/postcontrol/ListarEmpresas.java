@@ -1,68 +1,56 @@
 package com.example.postcontrol;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.postcontrol.adapter.EmpresaAdapter;
 import com.example.postcontrol.entity.Empresa;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class ListarEmpresas extends AppCompatActivity {
 
-    private FloatingActionButton btnAdd, btnInfo;
     private RecyclerView recyclerView;
-    private EmpresaAdapter empresaAdapter;
-    private static ArrayList<Empresa> empresas = new ArrayList<>();
+    private static final ArrayList<Empresa> empresas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_empresas);
-
-        btnAdd = findViewById(R.id.button_add);
-        btnInfo = findViewById(R.id.button_info);
         recyclerView = findViewById(R.id.recycler_view_main);
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        if (bundle != null) {
-            Empresa empresa = (Empresa) bundle.getSerializable(getString(R.string.empresa));
-            popularLista(empresa);
-        }
-
-//        listViewEmpresas = findViewById(R.id.listViewEmpresas);
-//
-//        listViewEmpresas.setOnItemClickListener((adapterView, view, position, l) -> {
-//            Empresa empresa = (Empresa) listViewEmpresas.getItemAtPosition(position);
-//            Toast.makeText(getApplicationContext(), empresa.getDetails(), Toast.LENGTH_LONG).show();
-//        });
-
-//
     }
 
     public void adicionarEmpresa(View view) {
         Intent intent = new Intent(this, CadastrarEmpresa.class);
-        startActivity(intent);
+        intent.putExtra(getString(R.string.result), 1);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                Empresa empresa = (Empresa) bundle.getSerializable(getString(R.string.empresa));
+                popularLista(empresa);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void mostrarInfos(View view) {
-        Toast.makeText(this, empresas.get(0).getDetails(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MostrarAutoria.class);
         startActivity(intent);
     }
 
     private void popularLista(Empresa empresa) {
         empresas.add(empresa);
-        empresaAdapter = new EmpresaAdapter(empresas);
+        EmpresaAdapter empresaAdapter = new EmpresaAdapter(empresas);
         recyclerView.setAdapter(empresaAdapter);
     }
 }
