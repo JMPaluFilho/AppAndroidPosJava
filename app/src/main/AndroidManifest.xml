@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PostControl">
+
+        <activity
+            android:name=".MostrarAutoria"
+            android:parentActivityName=".ListarEmpresas" />
+
         <activity android:name=".ListarEmpresas">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,8 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastrarEmpresa">
-        </activity>
-    </application>
 
+        <activity
+            android:name=".CadastrarEmpresa"
+            android:parentActivityName=".ListarEmpresas" />
+
+    </application>
 </manifest>
