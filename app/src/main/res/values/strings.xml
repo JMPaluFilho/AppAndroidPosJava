@@ -44,6 +44,14 @@
     <string name="voltar">Voltar</string>
     <string name="adicionar_empresa">Adicionar Empresa</string>
     <string name="infos_autorais">Informações Autorais</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="sobre">Sobre</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
+
+    <!-- Titles -->
+    <string name="nova_empresa">Nova Empresa</string>
+    <string name="editar_empresa">Editar Empresa</string>
 
     <!-- Utils -->
     <string name="sim">Sim</string>
