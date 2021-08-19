@@ -5,7 +5,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.postcontrol.entity.Empresa;
@@ -28,17 +31,28 @@ import java.util.Date;
 
 public class CadastrarEmpresa extends AppCompatActivity {
 
+    public static final String MODO = "MODO";
+    public static final String EMPRESA = "EMPRESA";
+    public static final int NOVO = 1;
+    public static final int EDITAR = 2;
+
     private EditText editTextNomeEmpresa, editTextDtInicio, editTextValorContrato, editTextCNPJ;
     private DatePickerDialog datePickerDialog;
     private RadioGroup radioGroupServicos;
     private Spinner spinnerFrequencia;
     private CheckBox contratoAtivo;
+    private static final ArrayList<String> listaFrequencia = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastrar_empresa);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         editTextNomeEmpresa = findViewById(R.id.editTextNomeEmpresa);
         editTextDtInicio = findViewById(R.id.editTextDtInicio);
@@ -53,6 +67,10 @@ public class CadastrarEmpresa extends AppCompatActivity {
         editTextCNPJ.addTextChangedListener(
                 MaskCNPJService.insert("##.###.###/####-##", editTextCNPJ));
 
+        if (listaFrequencia.isEmpty()) {
+            popularListaSpinner();
+        }
+
         popularSpinner();
         setDateTimeField();
 
@@ -60,20 +78,75 @@ public class CadastrarEmpresa extends AppCompatActivity {
             datePickerDialog.show();
             return false;
         });
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null) {
+            int modo = bundle.getInt(MODO, NOVO);
+
+            if (modo == NOVO) {
+                setTitle(getString(R.string.nova_empresa));
+            }
+
+            if (modo == EDITAR) {
+                Empresa empresa = (Empresa) bundle.getSerializable(EMPRESA);
+                editTextNomeEmpresa.setText(empresa.getNomeEmpresa());
+                editTextDtInicio.setText(MethodsUtils.exibirData(empresa.getDtInicioContrato()));
+                editTextValorContrato.setText(String.valueOf(empresa.getValorContrato()));
+                editTextCNPJ.setText(empresa.getCnpj());
+                contratoAtivo.setChecked(empresa.getContratoAtivo());
+
+                switch (empresa.getServicoContratado()) {
+                    case "Instagram":
+                        radioGroupServicos.check(R.id.radioButtonPosts);
+                        break;
+                    case "Facebook":
+                        radioGroupServicos.check(R.id.radioButtonReels);
+                        break;
+                    case "Site":
+                        radioGroupServicos.check(R.id.radioButtonStories);
+                        break;
+                    default:
+                        radioGroupServicos.clearCheck();
+                        break;
+                }
+
+                for (int i = 0; i < listaFrequencia.size(); i++) {
+                    if (empresa.getFrequenciaSemanal().equals(listaFrequencia.get(i))) {
+                        spinnerFrequencia.setSelection(i);
+                    }
+                }
+
+                setTitle(getString(R.string.editar_empresa));
+            }
+        }
     }
 
-    private void popularSpinner() {
-        ArrayList<String> listaFrequencia = new ArrayList<>();
+    public static void novaEmpresa(AppCompatActivity activity) {
+        Intent intent = new Intent(activity, CadastrarEmpresa.class);
+        intent.putExtra(MODO, NOVO);
+        activity.startActivityForResult(intent, NOVO);
+    }
 
+    public static void editarEmpresa(AppCompatActivity activity, Empresa empresa) {
+        Intent intent = new Intent(activity, CadastrarEmpresa.class);
+        intent.putExtra(MODO, EDITAR);
+        intent.putExtra(EMPRESA, empresa);
+        activity.startActivityForResult(intent, EDITAR);
+    }
+
+    private void popularListaSpinner() {
         listaFrequencia.add(getString(R.string.spinnerVazio));
         listaFrequencia.add(getString(R.string.spinnerUm));
         listaFrequencia.add(getString(R.string.spinnerDois));
         listaFrequencia.add(getString(R.string.spinnerTres));
         listaFrequencia.add(getString(R.string.spinnerQuatro));
+    }
 
+    private void popularSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, listaFrequencia);
-
         spinnerFrequencia.setAdapter(adapter);
     }
 
@@ -94,7 +167,7 @@ public class CadastrarEmpresa extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
     }
 
-    public void limparCampos(View view) {
+    public void limparCampos(MenuItem item) {
         editTextNomeEmpresa.setText(null);
         editTextDtInicio.setText(null);
         editTextValorContrato.setText(null);
@@ -108,11 +181,11 @@ public class CadastrarEmpresa extends AppCompatActivity {
     }
 
     @SuppressLint("NonConstantResourceId")
-    public void salvar(View view) {
+    public void salvar(MenuItem item) {
         String nomeEmpresa = editTextNomeEmpresa.getText().toString();
         String dtInicio = editTextDtInicio.getText().toString();
         String valorContrato = editTextValorContrato.getText().toString();
-        String CNPJ = editTextCNPJ.getText().toString();
+        String cnpj = editTextCNPJ.getText().toString();
         String servico;
         String frequencia = (String) spinnerFrequencia.getSelectedItem();
         boolean ativo = contratoAtivo.isChecked();
@@ -133,13 +206,13 @@ public class CadastrarEmpresa extends AppCompatActivity {
         }
 
         boolean erro = validarErros(
-                nomeEmpresa, dtInicio, valorContrato, CNPJ, servico, frequencia);
+                nomeEmpresa, dtInicio, valorContrato, cnpj, servico, frequencia);
 
         if (!erro) {
             LocalDate dataInicio = MethodsUtils.converterData(dtInicio);
             Double valor = MethodsUtils.converterValor(valorContrato);
 
-            Empresa empresa = new Empresa(nomeEmpresa, dataInicio, valor, CNPJ, servico, frequencia, ativo);
+            Empresa empresa = new Empresa(nomeEmpresa, dataInicio, valor, cnpj, servico, frequencia, ativo);
             Toast.makeText(this, empresa.getDetails(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent();
@@ -150,9 +223,33 @@ public class CadastrarEmpresa extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         setResult(Activity.RESULT_CANCELED);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.cadastro_opcoes, menu);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuItemSalvar:
+                salvar(item);
+                return true;
+            case R.id.menuItemLimpar:
+                limparCampos(item);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private boolean validarErros(String nomeEmpresa, String dtInicio, String valorContrato,

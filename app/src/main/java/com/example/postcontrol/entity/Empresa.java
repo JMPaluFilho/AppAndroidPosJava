@@ -91,7 +91,10 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome: " + getNomeEmpresa() + "; CNPJ: " + getCnpj();
+        return "Nome: " + getNomeEmpresa()
+                + "\nCNPJ: " + getCnpj()
+                + "\nValor do Contrato: " + MethodsUtils.exibirValor(getValorContrato())
+                + "\nClique para exibir detalhes...";
     }
 
     public String getDetails() {

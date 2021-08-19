@@ -26,48 +26,8 @@ public class MethodsUtils {
 
     public static String exibirData(LocalDate dtInicioContrato) {
         String data = dtInicioContrato.toString();
-        String dataExibida = data.substring(8);
-        switch (data.substring(5, 7)) {
-            case "01":
-                dataExibida += " jan";
-                break;
-            case "02":
-                dataExibida += " fev";
-                break;
-            case "03":
-                dataExibida += " mar";
-                break;
-            case "04":
-                dataExibida += " abr";
-                break;
-            case "05":
-                dataExibida += " mai";
-                break;
-            case "06":
-                dataExibida += " jun";
-                break;
-            case "07":
-                dataExibida += " jul";
-                break;
-            case "08":
-                dataExibida += " ago";
-                break;
-            case "09":
-                dataExibida += " set";
-                break;
-            case "10":
-                dataExibida += " out";
-                break;
-            case "11":
-                dataExibida += " nov";
-                break;
-            case "12":
-                dataExibida += " dez";
-                break;
-            default:
-                return null;
-        }
-        return dataExibida;
+        String[] dataSeparada = data.split("-");
+        return dataSeparada[2] + "/" + dataSeparada[1] + "/" + dataSeparada[0];
     }
 
     public static String exibirValor(Double valorContrato) {
