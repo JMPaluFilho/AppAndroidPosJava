@@ -1,0 +1,81 @@
+<resources>
+    <!-- App Name -->
+
+    <!-- Labels -->
+    <string name="empresa">Empresa</string>
+    <string name="nomeEmpresa">Nome da Empresa</string>
+    <string name="dtInicioContrato">Data de Início do Contrato</string>
+    <string name="valorContrato">Valor do Contrato</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="servicoContratado">Serviço Contratado</string>
+    <string name="rbInstagram">Instagram</string>
+    <string name="rbFacebook">Facebook</string>
+    <string name="rbSite">Site</string>
+    <string name="frequenciaSemanal">Frequência Semanal</string>
+    <string name="ativo">Contrato Ativo</string>
+    <string name="labelNomeAluno">Nome do Aluno:</string>
+    <string name="labelCurso">Curso:</string>
+    <string name="labelEmail">E-mail:</string>
+    <string name="labelDescricao">Descrição do App:</string>
+    <string name="ascendente">Ascendente</string>
+    <string name="descendente">Descendente</string>
+
+    <!-- Spinner -->
+    <string name="spinnerVazio" />
+    <string name="spinnerUm">1 vez</string>
+    <string name="spinnerDois">2 vezes</string>
+    <string name="spinnerTres">3 vezes</string>
+    <string name="spinnerQuatro">Todos os dias</string>
+
+    <!-- Errors -->
+    <string name="erro_nome">Nome da Empresa não pode ser vazio!</string>
+    <string name="erro_dtInicio">Data de Início do Contrato não pode ser vazia!</string>
+    <string name="erro_valorContrato">Valor do Contrato não pode ser vazio!</string>
+    <string name="erro_CNPJ_vazio">O CNPJ da Empresa não pode ser vazio!</string>
+    <string name="erro_CNPJ">O CNPJ deve possuir 14 dígitos!</string>
+    <string name="erro_servico">Nenhum serviço selecionado!</string>
+    <string name="erro_frequencia">Frequência não selecionada!</string>
+
+    <!-- Messages -->
+    <string name="campos_limpos">Campos Limpos!</string>
+
+    <!-- Buttons -->
+    <string name="limpar">Limpar</string>
+    <string name="salvar">Salvar</string>
+    <string name="voltar">Voltar</string>
+    <string name="adicionar_empresa">Adicionar Empresa</string>
+    <string name="infos_autorais">Informações Autorais</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="sobre">Sobre</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
+
+    <!-- Titles -->
+    <string name="nova_empresa">Nova Empresa</string>
+    <string name="editar_empresa">Editar Empresa</string>
+
+    <!-- Utils -->
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="utfpr">Universidade Tecnológica Federal do Paraná</string>
+    <string name="result">Result</string>
+
+    <!-- Infos -->
+    <string name="nomeAluno">José Marcos Palú Filho</string>
+    <string name="curso">Especialização Em Tecnologia Java</string>
+    <string name="email">jmpalufilho@gmail.com</string>
+    <string name="descricao">Manter um cadastro de empresas que solicitaram os serviços de um autônomo que gerencia mídias sociais.</string>
+    <string name="logo_utfpr">Logo UTFPR</string>
+    <string name="app_name">Controle de Postagens</string>
+
+    <!-- toString Empresa -->
+    <string name="nome_to_string">"Nome: "</string>
+    <string name="data_to_string">"Data de Início do Contrato: "</string>
+    <string name="valor_to_string">"Valor do Contrato: "</string>
+    <string name="cnpj_to_string">"CNPJ: "</string>
+    <string name="servico_to_string">"Serviço Contratado: "</string>
+    <string name="frequencia_to_string">"Frequência Semanal: "</string>
+    <string name="ativo_to_string">"Contrato Ativo: "</string>
+    <string name="detalhes_to_string">"Clique para mostrar mais detalhes…"</string>
+
+</resources>
