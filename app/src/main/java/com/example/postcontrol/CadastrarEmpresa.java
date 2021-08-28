@@ -135,7 +135,7 @@ public class CadastrarEmpresa extends AppCompatActivity {
         intent.putExtra(EMPRESA, empresa);
         activity.startActivityForResult(intent, EDITAR);
     }
-
+  
     private void popularListaSpinner() {
         listaFrequencia.add(getString(R.string.spinnerVazio));
         listaFrequencia.add(getString(R.string.spinnerUm));

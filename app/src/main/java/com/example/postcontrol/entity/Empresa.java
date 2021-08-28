@@ -91,20 +91,18 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome: " + getNomeEmpresa()
-                + "\nCNPJ: " + getCnpj()
-                + "\nValor do Contrato: " + MethodsUtils.exibirValor(getValorContrato())
-                + "\nClique para exibir detalhes...";
+        return getNomeEmpresa()
+                + "\n" + getServicoContratado()
+                + "\n" + MethodsUtils.exibirValor(getValorContrato());
     }
 
     public String getDetails() {
-        return "Nome: " + getNomeEmpresa()
-                + "\nData de Início do Contrato: " + getDtInicioContrato().
-                format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                + "\nValor do Contrato: " + MethodsUtils.exibirValor(getValorContrato())
-                + "\nCNPJ: " + getCnpj()
-                + "\nServiço Contratado: " + getServicoContratado()
-                + "\nFrequência Semanal: " + getFrequenciaSemanal()
-                + "\nContrato Ativo: " + (getContratoAtivo() ? "Sim" : "Não");
+        return getNomeEmpresa()
+                + "\n" + getDtInicioContrato().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                + "\n" + MethodsUtils.exibirValor(getValorContrato())
+                + "\n" + getCnpj()
+                + "\n" + getServicoContratado()
+                + "\n" + getFrequenciaSemanal()
+                + "\n" + getContratoAtivo();
     }
 }

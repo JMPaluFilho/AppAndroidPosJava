@@ -3,67 +3,79 @@
     <string name="app_name">Post Control</string>
 
     <!-- Labels -->
-    <string name="empresa">Empresa</string>
-    <string name="nomeEmpresa">Nome da Empresa</string>
-    <string name="dtInicioContrato">Data de Início do Contrato</string>
-    <string name="valorContrato">Valor do Contrato</string>
-    <string name="cnpj">CNPJ</string>
-    <string name="servicoContratado">Serviço Contratado</string>
+    <string name="empresa">Company</string>
+    <string name="nomeEmpresa">Company Name</string>
+    <string name="dtInicioContrato">Contract Start Date</string>
+    <string name="valorContrato">Contract Value</string>
+    <string name="cnpj">CNPJ (equivalent to EIN)</string>
+    <string name="servicoContratado">Contracted Service</string>
     <string name="rbInstagram">Instagram</string>
     <string name="rbFacebook">Facebook</string>
     <string name="rbSite">Site</string>
-    <string name="frequenciaSemanal">Frequência Semanal</string>
-    <string name="ativo">Contrato Ativo</string>
-    <string name="labelNomeAluno">Nome do Aluno:</string>
-    <string name="labelCurso">Curso:</string>
+    <string name="frequenciaSemanal">Weekly Frequency</string>
+    <string name="ativo">Active Contract</string>
+    <string name="labelNomeAluno">Student Name:</string>
+    <string name="labelCurso">Course:</string>
     <string name="labelEmail">E-mail:</string>
-    <string name="labelDescricao">Descrição do App:</string>
+    <string name="labelDescricao">App Description:</string>
+    <string name="ascendente">Ascending</string>
+    <string name="descendente">Descending</string>
 
     <!-- Spinner -->
-    <string name="spinnerVazio" />
-    <string name="spinnerUm">1 vez</string>
-    <string name="spinnerDois">2 vezes</string>
-    <string name="spinnerTres">3 vezes</string>
-    <string name="spinnerQuatro">Todos os dias</string>
+    <string name="spinnerVazio" translatable="false" />
+    <string name="spinnerUm">1 time</string>
+    <string name="spinnerDois">2 times</string>
+    <string name="spinnerTres">3 times</string>
+    <string name="spinnerQuatro">Every day</string>
 
     <!-- Errors -->
-    <string name="erro_nome">Nome da Empresa não pode ser vazio!</string>
-    <string name="erro_dtInicio">Data de Início do Contrato não pode ser vazia!</string>
-    <string name="erro_valorContrato">Valor do Contrato não pode ser vazio!</string>
-    <string name="erro_CNPJ_vazio">O CNPJ da Empresa não pode ser vazio!</string>
-    <string name="erro_CNPJ">O CNPJ deve possuir 14 dígitos!</string>
-    <string name="erro_servico">Nenhum serviço selecionado</string>
-    <string name="erro_frequencia">Frequência não selecionada!</string>
+    <string name="erro_nome">Company Name can\'t be empty!</string>
+    <string name="erro_dtInicio">Contract Start Date can\'t be empty!</string>
+    <string name="erro_valorContrato">Contract Value can\'t be empty!</string>
+    <string name="erro_CNPJ_vazio">CNPJ can\'t be empty!</string>
+    <string name="erro_CNPJ">CNPJ must be 14 digits!</string>
+    <string name="erro_servico">No services selected!</string>
+    <string name="erro_frequencia">Frequency not selected!</string>
 
     <!-- Messages -->
-    <string name="campos_limpos">Campos Limpos!</string>
+    <string name="campos_limpos">Fields were cleared!</string>
 
     <!-- Buttons -->
-    <string name="limpar">Limpar</string>
-    <string name="salvar">Salvar</string>
-    <string name="voltar">Voltar</string>
-    <string name="adicionar_empresa">Adicionar Empresa</string>
-    <string name="infos_autorais">Informações Autorais</string>
-    <string name="adicionar">Adicionar</string>
-    <string name="sobre">Sobre</string>
-    <string name="editar">Editar</string>
-    <string name="excluir">Excluir</string>
+    <string name="limpar">Clear</string>
+    <string name="salvar">Save</string>
+    <string name="voltar">Back</string>
+    <string name="adicionar_empresa">Add Company</string>
+    <string name="infos_autorais">Copyright Information</string>
+    <string name="adicionar">Add</string>
+    <string name="sobre">About</string>
+    <string name="excluir">Delete</string>
 
     <!-- Titles -->
-    <string name="nova_empresa">Nova Empresa</string>
-    <string name="editar_empresa">Editar Empresa</string>
+    <string name="nova_empresa">New Company</string>
+    <string name="editar_empresa">Edit Company</string>
 
     <!-- Utils -->
-    <string name="sim">Sim</string>
-    <string name="nao">Não</string>
-    <string name="utfpr">Universidade Tecnológica Federal do Paraná</string>
+    <string name="sim">Yes</string>
+    <string name="nao">No</string>
+    <string name="utfpr">Federal Technological University of Paraná</string>
     <string name="result">Result</string>
 
     <!-- Infos -->
     <string name="nomeAluno">José Marcos Palú Filho</string>
-    <string name="curso">Especialização Em Tecnologia Java</string>
+    <string name="curso">Specialization in Java Technology</string>
     <string name="email">jmpalufilho@gmail.com</string>
-    <string name="descricao">Manter um cadastro de empresas que solicitaram os serviços de um autônomo que gerencia mídias sociais.</string>
-    <string name="logo_utfpr">Logo UTFPR</string>
+    <string name="descricao">Keep a record of companies that have requested the services of a self-employed person who manages social media.</string>
+    <string name="logo_utfpr">UTFPR Logo</string>
+    <string name="editar">Edit</string>
+
+    <!-- toString Empresa -->
+    <string name="nome_to_string">"Name: "</string>
+    <string name="data_to_string">"Contract Start Date: "</string>
+    <string name="valor_to_string">"Contract Value: "</string>
+    <string name="cnpj_to_string">"CNPJ: "</string>
+    <string name="servico_to_string">"Contracted Service: "</string>
+    <string name="frequencia_to_string">"Weekly Frequency: "</string>
+    <string name="ativo_to_string">"Active Contract: "</string>
+    <string name="detalhes_to_string">"Click to show more details…"</string>
 
 </resources>
