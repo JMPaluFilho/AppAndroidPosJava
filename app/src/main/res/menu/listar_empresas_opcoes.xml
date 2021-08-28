@@ -11,4 +11,14 @@
         android:id="@+id/menuItemSobre"
         android:title="@string/sobre"
         app:showAsAction="ifRoom" />
+    <group
+        android:id="@+id/menuItemGroup"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuItemAscendente"
+            android:title="@string/ascendente" />
+        <item
+            android:id="@+id/menuItemDescendente"
+            android:title="@string/descendente" />
+    </group>
 </menu>

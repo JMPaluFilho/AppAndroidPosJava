@@ -2,7 +2,9 @@ package com.example.postcontrol;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import androidx.appcompat.view.ActionMode;
 import com.example.postcontrol.entity.Empresa;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ListarEmpresas extends AppCompatActivity {
 
@@ -28,7 +31,10 @@ public class ListarEmpresas extends AppCompatActivity {
     private View viewSelecionada;
     private int posicaoSelecionada = -1;
     private ArrayList<Empresa> empresas;
+    private boolean opcao = true;
 
+    private static final String ARQUIVO = "com.example.postcontrol.SORT_PREFERENCE";
+    private static final String SORT_PREFERENCE = "SORT_PREFERENCE";
 
     private final ActionMode.Callback menuActionModeCallback = new ActionMode.Callback() {
         @Override
@@ -95,11 +101,26 @@ public class ListarEmpresas extends AppCompatActivity {
             return true;
         });
         popularLista();
+        lerPreferenciaSort();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.listar_empresas_opcoes, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item;
+
+        if (opcao) {
+            item = menu.findItem(R.id.menuItemAscendente);
+        } else {
+            item = menu.findItem(R.id.menuItemDescendente);
+        }
+
+        item.setChecked(true);
         return true;
     }
 
@@ -114,6 +135,12 @@ public class ListarEmpresas extends AppCompatActivity {
             case R.id.menuItemSobre:
                 intent = new Intent(this, MostrarAutoria.class);
                 startActivity(intent);
+                return true;
+            case R.id.menuItemAscendente:
+                salvarPreferenciaSort(true);
+                return true;
+            case R.id.menuItemDescendente:
+                salvarPreferenciaSort(false);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -141,7 +168,7 @@ public class ListarEmpresas extends AppCompatActivity {
             } else {
                 empresas.add(empresa);
             }
-            listAdapter.notifyDataSetChanged();
+            ordenarLista(opcao);
         }
     }
 
@@ -159,5 +186,29 @@ public class ListarEmpresas extends AppCompatActivity {
     private void editarEmpresa() {
         Empresa empresa = empresas.get(posicaoSelecionada);
         CadastrarEmpresa.editarEmpresa(this, empresa);
+    }
+
+    private void lerPreferenciaSort() {
+        SharedPreferences sharedPreferences = getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE);
+        opcao = sharedPreferences.getBoolean(SORT_PREFERENCE, opcao);
+        ordenarLista(opcao);
+    }
+
+    private void salvarPreferenciaSort(boolean sort) {
+        SharedPreferences shared = getSharedPreferences(ARQUIVO, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putBoolean(SORT_PREFERENCE, sort);
+        editor.apply();
+        opcao = sort;
+        ordenarLista(sort);
+    }
+
+    private void ordenarLista(boolean ascendente) {
+        if (ascendente) {
+            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa));
+        } else {
+            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa).reversed());
+        }
+        listAdapter.notifyDataSetChanged();
     }
 }
