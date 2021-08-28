@@ -43,7 +43,6 @@ public class CadastrarEmpresa extends AppCompatActivity {
     private CheckBox contratoAtivo;
     private static final ArrayList<String> listaFrequencia = new ArrayList<>();
 
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +135,7 @@ public class CadastrarEmpresa extends AppCompatActivity {
         intent.putExtra(EMPRESA, empresa);
         activity.startActivityForResult(intent, EDITAR);
     }
-
+  
     private void popularListaSpinner() {
         listaFrequencia.add(getString(R.string.spinnerVazio));
         listaFrequencia.add(getString(R.string.spinnerUm));
