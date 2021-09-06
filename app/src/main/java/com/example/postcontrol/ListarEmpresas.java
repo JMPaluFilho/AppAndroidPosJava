@@ -7,18 +7,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
+import com.example.postcontrol.adapter.EmpresaAdapter;
 import com.example.postcontrol.entity.Empresa;
 import com.example.postcontrol.persistencia.EmpresaDatabase;
 import com.example.postcontrol.utils.UtilsGUI;
@@ -29,7 +30,7 @@ import java.util.Comparator;
 public class ListarEmpresas extends AppCompatActivity {
 
     private ListView listView;
-    private ArrayAdapter<Empresa> listAdapter;
+    private EmpresaAdapter listAdapter;
     private ActionMode actionMode;
     private View viewSelecionada;
     private ArrayList<Empresa> empresas;
@@ -167,7 +168,7 @@ public class ListarEmpresas extends AppCompatActivity {
     private void popularLista() {
         EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(this);
         empresas = (ArrayList<Empresa>) empresaDatabase.empresaDAO().findAll();
-        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, empresas);
+        listAdapter = new EmpresaAdapter(this, empresas);
         listView.setAdapter(listAdapter);
         lerPreferenciaSort();
     }
@@ -180,7 +181,7 @@ public class ListarEmpresas extends AppCompatActivity {
                 case DialogInterface.BUTTON_POSITIVE:
                     EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(ListarEmpresas.this);
                     empresaDatabase.empresaDAO().delete(empresa);
-                    listAdapter.remove(empresa);
+                    popularLista();
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     break;
@@ -212,9 +213,13 @@ public class ListarEmpresas extends AppCompatActivity {
 
     private void ordenarLista(boolean ascendente) {
         if (ascendente) {
-            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa));
+            }
         } else {
-            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa).reversed());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa).reversed());
+            }
         }
         listAdapter.notifyDataSetChanged();
     }
