@@ -19,12 +19,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.postcontrol.entity.Empresa;
+import com.example.postcontrol.persistencia.EmpresaDatabase;
 import com.example.postcontrol.services.MaskCNPJService;
 import com.example.postcontrol.services.MaskCurrencyService;
 import com.example.postcontrol.utils.MethodsUtils;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,7 +32,7 @@ import java.util.Date;
 public class CadastrarEmpresa extends AppCompatActivity {
 
     public static final String MODO = "MODO";
-    public static final String EMPRESA = "EMPRESA";
+    public static final String ID = "ID";
     public static final int NOVO = 1;
     public static final int EDITAR = 2;
 
@@ -41,6 +41,8 @@ public class CadastrarEmpresa extends AppCompatActivity {
     private RadioGroup radioGroupServicos;
     private Spinner spinnerFrequencia;
     private CheckBox contratoAtivo;
+    private int modo;
+    private final Empresa empresa = new Empresa();
     private static final ArrayList<String> listaFrequencia = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
@@ -83,16 +85,19 @@ public class CadastrarEmpresa extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if (bundle != null) {
-            int modo = bundle.getInt(MODO, NOVO);
+            modo = bundle.getInt(MODO, NOVO);
 
             if (modo == NOVO) {
                 setTitle(getString(R.string.nova_empresa));
             }
 
             if (modo == EDITAR) {
-                Empresa empresa = (Empresa) bundle.getSerializable(EMPRESA);
+                setTitle(getString(R.string.editar_empresa));
+                EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(this);
+                Empresa empresa = empresaDatabase.empresaDAO().findEmpresaById(bundle.getLong(ID));
+
                 editTextNomeEmpresa.setText(empresa.getNomeEmpresa());
-                editTextDtInicio.setText(MethodsUtils.exibirData(empresa.getDtInicioContrato()));
+                editTextDtInicio.setText(empresa.getDtInicioContrato());
                 editTextValorContrato.setText(String.valueOf(empresa.getValorContrato()));
                 editTextCNPJ.setText(empresa.getCnpj());
                 contratoAtivo.setChecked(empresa.getContratoAtivo());
@@ -117,8 +122,6 @@ public class CadastrarEmpresa extends AppCompatActivity {
                         spinnerFrequencia.setSelection(i);
                     }
                 }
-
-                setTitle(getString(R.string.editar_empresa));
             }
         }
     }
@@ -132,7 +135,7 @@ public class CadastrarEmpresa extends AppCompatActivity {
     public static void editarEmpresa(AppCompatActivity activity, Empresa empresa) {
         Intent intent = new Intent(activity, CadastrarEmpresa.class);
         intent.putExtra(MODO, EDITAR);
-        intent.putExtra(EMPRESA, empresa);
+        intent.putExtra(ID, empresa.getId());
         activity.startActivityForResult(intent, EDITAR);
     }
   
@@ -209,15 +212,29 @@ public class CadastrarEmpresa extends AppCompatActivity {
                 nomeEmpresa, dtInicio, valorContrato, cnpj, servico, frequencia);
 
         if (!erro) {
-            LocalDate dataInicio = MethodsUtils.converterData(dtInicio);
             Double valor = MethodsUtils.converterValor(valorContrato);
+            empresa.setNomeEmpresa(nomeEmpresa);
+            empresa.setDtInicioContrato(dtInicio);
+            empresa.setValorContrato(valor);
+            empresa.setCnpj(cnpj);
+            empresa.setServicoContratado(servico);
+            empresa.setFrequenciaSemanal(frequencia);
+            empresa.setContratoAtivo(ativo);
+            EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(this);
 
-            Empresa empresa = new Empresa(nomeEmpresa, dataInicio, valor, cnpj, servico, frequencia, ativo);
+            if (modo == NOVO) {
+                empresaDatabase.empresaDAO().insert(empresa);
+            }
+
+            if (modo == EDITAR) {
+                Intent intent = getIntent();
+                Bundle bundle = intent.getExtras();
+                empresa.setId(bundle.getLong(ID));
+                empresaDatabase.empresaDAO().update(empresa);
+            }
+
             Toast.makeText(this, empresa.getDetails(), Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent();
-            intent.putExtra(getString(R.string.empresa), empresa);
-            setResult(Activity.RESULT_OK, intent);
+            setResult(Activity.RESULT_OK);
             finish();
         }
     }

@@ -2,7 +2,6 @@ package com.example.postcontrol.utils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class MethodsUtils {
@@ -28,18 +27,6 @@ public class MethodsUtils {
         }
 
         return valor;
-    }
-
-    public static LocalDate converterData(String dtInicio) {
-        String[] dateString = dtInicio.split("/");
-        return LocalDate.of(Integer.parseInt(dateString[2]),
-                Integer.parseInt(dateString[1]), Integer.parseInt(dateString[0]));
-    }
-
-    public static String exibirData(LocalDate dtInicioContrato) {
-        String data = dtInicioContrato.toString();
-        String[] dataSeparada = data.split("-");
-        return dataSeparada[2] + "/" + dataSeparada[1] + "/" + dataSeparada[0];
     }
 
     public static String exibirValor(Double valorContrato) {

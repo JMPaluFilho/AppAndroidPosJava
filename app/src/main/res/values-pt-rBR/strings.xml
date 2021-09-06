@@ -38,6 +38,8 @@
 
     <!-- Messages -->
     <string name="campos_limpos">Campos Limpos!</string>
+    <string name="confirmacao_delete">"Deseja realmente apagar a empresa "</string>
+    <string name="confirmacao">Confirmação</string>
 
     <!-- Buttons -->
     <string name="limpar">Limpar</string>

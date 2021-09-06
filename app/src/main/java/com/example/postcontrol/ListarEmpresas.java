@@ -3,22 +3,26 @@ package com.example.postcontrol;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
+import com.example.postcontrol.adapter.EmpresaAdapter;
 import com.example.postcontrol.entity.Empresa;
+import com.example.postcontrol.persistencia.EmpresaDatabase;
+import com.example.postcontrol.utils.UtilsGUI;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,12 +30,12 @@ import java.util.Comparator;
 public class ListarEmpresas extends AppCompatActivity {
 
     private ListView listView;
-    private ArrayAdapter<Empresa> listAdapter;
+    private EmpresaAdapter listAdapter;
     private ActionMode actionMode;
     private View viewSelecionada;
-    private int posicaoSelecionada = -1;
     private ArrayList<Empresa> empresas;
     private boolean opcao = true;
+    private int posicaoSelecionada = -1;
 
     private static final String ARQUIVO = "com.example.postcontrol.SORT_PREFERENCE";
     private static final String SORT_PREFERENCE = "SORT_PREFERENCE";
@@ -52,14 +56,18 @@ public class ListarEmpresas extends AppCompatActivity {
         @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            Empresa empresa = (Empresa) listView.getItemAtPosition(posicaoSelecionada);
+
             switch (item.getItemId()) {
                 case R.id.menuItemEditar:
-                    editarEmpresa();
+                    editarEmpresa(empresa);
                     mode.finish();
+                    posicaoSelecionada = -1;
                     return true;
                 case R.id.menuItemExcluir:
-                    excluirEmpresa();
+                    excluirEmpresa(empresa);
                     mode.finish();
+                    posicaoSelecionada = -1;
                     return true;
                 default:
                     return false;
@@ -85,8 +93,8 @@ public class ListarEmpresas extends AppCompatActivity {
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            posicaoSelecionada = position;
-            editarEmpresa();
+            Empresa empresa = (Empresa) parent.getItemAtPosition(position);
+            editarEmpresa(empresa);
         });
 
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
@@ -152,40 +160,40 @@ public class ListarEmpresas extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            Empresa empresa = (Empresa) bundle.getSerializable(getString(R.string.empresa));
-
-            if (requestCode == CadastrarEmpresa.EDITAR) {
-                Empresa empresaExistente = empresas.get(posicaoSelecionada);
-                empresaExistente.setNomeEmpresa(empresa.getNomeEmpresa());
-                empresaExistente.setDtInicioContrato(empresa.getDtInicioContrato());
-                empresaExistente.setValorContrato(empresa.getValorContrato());
-                empresaExistente.setCnpj(empresa.getCnpj());
-                empresaExistente.setServicoContratado(empresa.getServicoContratado());
-                empresaExistente.setFrequenciaSemanal(empresa.getFrequenciaSemanal());
-                empresaExistente.setContratoAtivo(empresa.getContratoAtivo());
-                posicaoSelecionada = -1;
-            } else {
-                empresas.add(empresa);
-            }
+            popularLista();
             ordenarLista(opcao);
         }
     }
 
     private void popularLista() {
-        empresas = new ArrayList<>();
-        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, empresas);
+        EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(this);
+        empresas = (ArrayList<Empresa>) empresaDatabase.empresaDAO().findAll();
+        listAdapter = new EmpresaAdapter(this, empresas);
         listView.setAdapter(listAdapter);
+        lerPreferenciaSort();
     }
 
-    private void excluirEmpresa() {
-        empresas.remove(posicaoSelecionada);
-        listAdapter.notifyDataSetChanged();
+    private void excluirEmpresa(final Empresa empresa) {
+        String mensagem = getString(R.string.confirmacao_delete) + empresa.getNomeEmpresa();
+
+        DialogInterface.OnClickListener listener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    EmpresaDatabase empresaDatabase = EmpresaDatabase.getDatabase(ListarEmpresas.this);
+                    empresaDatabase.empresaDAO().delete(empresa);
+                    popularLista();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        };
+
+        UtilsGUI.confirmaAcao(this, mensagem, listener);
     }
 
-    private void editarEmpresa() {
-        Empresa empresa = empresas.get(posicaoSelecionada);
+    private void editarEmpresa(final Empresa empresa) {
         CadastrarEmpresa.editarEmpresa(this, empresa);
+        popularLista();
     }
 
     private void lerPreferenciaSort() {
@@ -205,9 +213,13 @@ public class ListarEmpresas extends AppCompatActivity {
 
     private void ordenarLista(boolean ascendente) {
         if (ascendente) {
-            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa));
+            }
         } else {
-            empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa).reversed());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                empresas.sort(Comparator.comparing(Empresa::getNomeEmpresa).reversed());
+            }
         }
         listAdapter.notifyDataSetChanged();
     }

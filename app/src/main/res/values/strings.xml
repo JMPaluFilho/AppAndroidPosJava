@@ -39,6 +39,8 @@
 
     <!-- Messages -->
     <string name="campos_limpos">Fields were cleared!</string>
+    <string name="confirmacao_delete">"Do you really want to delete the company "</string>
+    <string name="confirmacao">Confirmation</string>
 
     <!-- Buttons -->
     <string name="limpar">Clear</string>
