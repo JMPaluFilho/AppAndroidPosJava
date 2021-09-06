@@ -1,17 +1,18 @@
 package com.example.postcontrol.entity;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.postcontrol.utils.MethodsUtils;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+@Entity
+public class Empresa {
 
-public class Empresa implements Serializable {
-
-    private static final long serialVersionUID = -6609754280778852186L;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     private String nomeEmpresa;
-    private LocalDate dtInicioContrato;
+    private String dtInicioContrato;
     private Double valorContrato;
     private String cnpj;
     private String servicoContratado;
@@ -22,15 +23,12 @@ public class Empresa implements Serializable {
 
     }
 
-    public Empresa(String nomeEmpresa, LocalDate dtInicioContrato, Double valorContrato, String cnpj,
-                   String servicoContratado, String frequenciaSemanal, Boolean contratoAtivo) {
-        this.nomeEmpresa = nomeEmpresa;
-        this.dtInicioContrato = dtInicioContrato;
-        this.valorContrato = valorContrato;
-        this.cnpj = cnpj;
-        this.servicoContratado = servicoContratado;
-        this.frequenciaSemanal = frequenciaSemanal;
-        this.contratoAtivo = contratoAtivo;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNomeEmpresa() {
@@ -41,11 +39,11 @@ public class Empresa implements Serializable {
         this.nomeEmpresa = nomeEmpresa;
     }
 
-    public LocalDate getDtInicioContrato() {
+    public String getDtInicioContrato() {
         return dtInicioContrato;
     }
 
-    public void setDtInicioContrato(LocalDate dtInicioContrato) {
+    public void setDtInicioContrato(String dtInicioContrato) {
         this.dtInicioContrato = dtInicioContrato;
     }
 
@@ -97,8 +95,9 @@ public class Empresa implements Serializable {
     }
 
     public String getDetails() {
-        return getNomeEmpresa()
-                + "\n" + getDtInicioContrato().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        return getId()
+                + "\n" + getNomeEmpresa()
+                + "\n" + getDtInicioContrato()
                 + "\n" + MethodsUtils.exibirValor(getValorContrato())
                 + "\n" + getCnpj()
                 + "\n" + getServicoContratado()
