@@ -93,7 +93,7 @@ public class EmpresaAdapter extends BaseAdapter {
 
     private void preencherCores(EmpresaHolder empresaHolder, Empresa empresa) {
         if (!cores.containsKey(empresa.getNomeEmpresa())) {
-            int random = 0;
+            int random = 1;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 random = ThreadLocalRandom.current().nextInt();
             }
